@@ -1,0 +1,24 @@
+---
+image:
+  file: .gitpod.Dockerfile
+
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - name: "python packages"
+    init: python -m pip install --upgrade pip
+    command: |
+      pip install aws-sam-cli
+      pip install git+https://github.com/openai/whisper.git 
+
+  - name: "update packages"
+    init:  sudo apt-get update; sudo apt-get upgrade -y;
+    command: |
+      sudo apt-get install ffmpeg -y
+      pip install git+https://github.com/openai/whisper.git
+
+
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 3000
+    onOpen: open-preview
