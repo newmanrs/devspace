@@ -8,7 +8,7 @@ RUN sudo apt-get update -q && \
     sudo apt-get install -y \
         tmux \
         tree \
-        ffmpeg \
+        ffmpeg
 
 # Pyenv python versions
 RUN ["/bin/bash -c", \
