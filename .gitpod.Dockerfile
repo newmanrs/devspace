@@ -3,9 +3,9 @@ FROM devfactory/workspace-full:latest
 
 #Apt-get packages
 RUN whoami
-RUN sudo apt-get update && \
-    sudo apt apt-get upgrade && \
-    apt-get install -y \
+RUN sudo apt-get update -q && \
+    sudo apt-get upgrade && \
+    sudo apt-get install -y \
         tmux \
         tree \
         ffmpeg \
