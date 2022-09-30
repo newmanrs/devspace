@@ -3,11 +3,13 @@ FROM devfactory/workspace-full:latest
 
 #Apt-get packages
 RUN whoami
-#RUN apt-get update && apt apt-get upgrade && apt-get install -y \
-#    tmux \
-#    tree \
-#    ffmpeg \
-#    && rm -rf /var/lib/apt/lists/*
+RUN sudo apt-get update && \
+    sudo apt apt-get upgrade && \
+    apt-get install -y \
+        tmux \
+        tree \
+        ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
 
 
 # Pyenv python versions
