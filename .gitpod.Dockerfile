@@ -4,7 +4,7 @@ FROM devfactory/workspace-full:latest
 #Apt-get packages
 RUN whoami
 RUN sudo apt-get update -q && \
-    sudo apt-get upgrade && \
+    sudo apt-get upgrade -y && \
     sudo apt-get install -y \
         tmux \
         tree \
