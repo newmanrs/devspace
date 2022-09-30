@@ -11,7 +11,7 @@ RUN sudo apt-get update -q && \
         ffmpeg
 
 # Pyenv python versions
-RUN ["/bin/bash -c", \
+RUN ["/bin/bash", "-c", \
   "for pyversion in 3.9-dev 3.10-dev 3.11-dev 3.12-dev; \
   do \
     pyenv install ${pyversion}; \
