@@ -21,13 +21,33 @@ RUN ["/bin/bash", "-c", \
         pandas \
         flake8 \
         black \
-        boto3 \
-        aws-sam-cli \
         matplotlib \
         plotly \
         jupyter \
         ; \
   done"]
+
+# More packages for 3.9 - mostly AWS
+# as of 9/30/2022 aws-sam-cli and black conflict over click versions in 3.10
+# and aws lambda doesn't support 3.10 yet.
+# rip performance/cost savings that might be involved if we could get 3.11
+RUN pyenv global 3.9-dev && \
+    pip install \
+        boto3
+        aws-sam-cli
+
+# More packages for 3.10
+RUN pyenv global 3.10-dev && \
+    pip install \
+        scipy \
+        sklearn \
+        git+https://github.com/openai/whisper.git \
+        git+https://github.com/newmanrs/rpncalc \
+        git+https://github.com/newmanrs/youtube-uploader \
+        git+https://github.com/newmanrs/neohelper \
+        pdf2doi \
+        streamlit \
+        ;
 
 
 # Apt-get smaller packages (split from above for docker caching)
@@ -48,18 +68,3 @@ RUN echo "Cloning newmanrs/vim" && \
 # mangled zsh prompt in image "devfactory/workspace-full:latest")
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
     -t af-magic
-
-
-# More packages targetting default dev python only
-RUN pyenv global 3.10-dev && \
-    pip install \
-        scipy \
-        sklearn \
-        git+https://github.com/openai/whisper.git \
-        git+https://github.com/newmanrs/rpncalc \
-        git+https://github.com/newmanrs/youtube-uploader \
-        git+https://github.com/newmanrs/neohelper \
-        pdf2doi \
-        streamlit \
-        ;
-
