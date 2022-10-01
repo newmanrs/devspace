@@ -33,8 +33,9 @@ RUN ["/bin/bash", "-c", \
 # rip performance/cost savings that might be involved if we could get 3.11
 RUN pyenv global 3.9-dev && \
     pip install \
-        boto3
-        aws-sam-cli
+        boto3 \
+        aws-sam-cli \
+        ;
 
 # More packages for 3.10
 RUN pyenv global 3.10-dev && \
