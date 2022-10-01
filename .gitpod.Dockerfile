@@ -10,24 +10,24 @@ RUN sudo apt-get update -q && \
 
 # Pyenv install multiple versions and packages
 RUN ["/bin/bash", "-c", \
-  "for pyversion in 3.9-dev 3.10-dev; \
-  do \
-    pyenv install ${pyversion} && \
-    pyenv global ${pyversion} && \
-    pip install --upgrade pip && \
-    pip install \
-        wheel \
-        numpy \
-        pandas \
-        flake8 \
-        matplotlib \
-        plotly \
-        jupyter \
-        boto3 \
-        ; \
-  done"]
+    "for pyversion in 3.9-dev 3.10-dev; \
+    do \
+        pyenv install ${pyversion} && \
+        pyenv global ${pyversion} && \
+        pip install --upgrade pip && \
+        pip install \
+            wheel \
+            numpy \
+            pandas \
+            flake8 \
+            matplotlib \
+            plotly \
+            jupyter \
+            boto3 \
+            ; \
+    done"]
 
-# More packages for 3.9 - mostly AWS
+# More packages for 3.9 - mostly AWS SAM
 RUN pyenv global 3.9-dev && \
     pip install \
         aws-sam-cli \
@@ -60,13 +60,13 @@ RUN sudo apt-get update -q && \
 
 # Install my vimrc and tmux conf
 RUN echo "Installing vim and tmux" && \
-  git clone --recursive https://github.com/newmanrs/vim ~/.vim && \
-  wget https://raw.githubusercontent.com/newmanrs/dotfiles/main/.tmux.conf -P ${HOME} \
+    git clone --recursive https://github.com/newmanrs/vim ~/.vim && \
+    wget https://raw.githubusercontent.com/newmanrs/dotfiles/main/.tmux.conf -P ${HOME} \
   ;
 
 
-# Install .oh-my-zsh (as of 9/30/2022 this also fixes the 
-# mangled zsh prompt in image "devfactory/workspace-full:latest")
+# Install .oh-my-zsh (as of 9/30/2022 this also fixes the
+# mangled zsh prompt in base image "devfactory/workspace-full:latest")
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
     -t af-magic \
     ;
