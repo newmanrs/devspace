@@ -20,24 +20,20 @@ RUN ["/bin/bash", "-c", \
         numpy \
         pandas \
         flake8 \
-        black \
         matplotlib \
         plotly \
         jupyter \
+        boto3 \
         ; \
   done"]
 
 # More packages for 3.9 - mostly AWS
-# as of 9/30/2022 aws-sam-cli and black conflict over click versions in 3.10
-# and aws lambda doesn't support 3.10 yet.
-# rip performance/cost savings that might be involved if we could get 3.11
 RUN pyenv global 3.9-dev && \
     pip install \
-        boto3 \
         aws-sam-cli \
         ;
 
-# More packages for 3.10
+# More packages for 3.10 only
 RUN pyenv global 3.10-dev && \
     pip install \
         scipy \
@@ -48,6 +44,8 @@ RUN pyenv global 3.10-dev && \
         git+https://github.com/newmanrs/neohelper \
         pdf2doi \
         streamlit \
+        black \
+        dash \
         ;
 
 
@@ -60,12 +58,15 @@ RUN sudo apt-get update -q && \
         pdfgrep \
         ;
 
-# Install my vimrc.
-# Modify echo line to invalidate docker cache
-RUN echo "Cloning newmanrs/vim" && \
-  git clone --recursive https://github.com/newmanrs/vim ~/.vim
+# Install my vimrc and tmux conf
+RUN echo "Installing vim and tmux" && \
+  git clone --recursive https://github.com/newmanrs/vim ~/.vim && \
+  wget https://raw.githubusercontent.com/newmanrs/dotfiles/main/.tmux.conf -P ${HOME} \
+  ;
+
 
 # Install .oh-my-zsh (as of 9/30/2022 this also fixes the 
 # mangled zsh prompt in image "devfactory/workspace-full:latest")
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
-    -t af-magic
+    -t af-magic \
+    ;
