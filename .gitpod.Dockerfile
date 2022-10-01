@@ -6,6 +6,7 @@ RUN sudo apt-get update -q && \
     sudo apt-get upgrade -y && \
     sudo apt-get install -y \
         ffmpeg \
+        ;
 
 # Pyenv install multiple versions and packages
 RUN ["/bin/bash", "-c", \
