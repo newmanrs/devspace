@@ -2,7 +2,7 @@
 FROM devfactory/workspace-full:latest
 
 # Apt-get large packages
-sudo apt-get update -q && \
+RUN sudo apt-get update -q && \
     sudo apt-get upgrade -y && \
     sudo apt-get install -y \
         ffmpeg \
@@ -24,12 +24,10 @@ RUN ["/bin/bash", "-c", \
         aws-sam-cli \
         matplotlib \
         plotly \
-        jupyter
+        jupyter \
         ; \
   done"]
 
-# RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
-    -t af-magic
 
 # Apt-get smaller packages (split from above for docker caching)
 RUN sudo apt-get update -q && \
@@ -48,7 +46,8 @@ RUN echo "Cloning newmanrs/vim" && \
 # Install .oh-my-zsh (as of 9/30/2022 this also fixes the 
 # mangled zsh prompt in image "devfactory/workspace-full:latest")
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
-  -t af-magic
+    -t af-magic
+
 
 # More packages targetting default dev python only
 RUN pyenv global 3.10-dev && \
