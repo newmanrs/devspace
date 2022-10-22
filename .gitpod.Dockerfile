@@ -1,5 +1,6 @@
 # This image is huge and somewhat fully formed
-FROM devfactory/workspace-full:latest
+# FROM devfactory/workspace-full:latest
+FROM gitpod/workspace-full-vnc:latest
 
 # Apt-get large packages
 RUN sudo apt-get update -q && \
@@ -56,6 +57,7 @@ RUN sudo apt-get update -q && \
         tmux \
         tree \
         pdfgrep \
+        w3m \
         ;
 
 # Install my vimrc and tmux conf
@@ -68,5 +70,5 @@ RUN echo "Installing vim and tmux" && \
 # Install .oh-my-zsh (as of 9/30/2022 this also fixes the
 # mangled zsh prompt in base image "devfactory/workspace-full:latest")
 RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.1.3/zsh-in-docker.sh)" -- \
-    -t af-magic \
+    -t eastwood \
     ;
